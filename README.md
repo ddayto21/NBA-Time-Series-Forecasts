@@ -21,7 +21,10 @@ def Scrape_MVP():
             f.write(data.text)
 ```
 
-### Create CSV Files
+### Scraping NBA Player Statistics
+The webpages that contain NBA player statistics contain dynamic content, making it a challenge to scrape all of the data we need in order to train our machine learning model. However, we address this problem using a Selenium chrome driver in order to loa  block of code scrapes MVP data from the past 30 years (1991 to 2022), then creates an HTML file for each year. After we are finished webscraping, we will extract the relevant data from each HTML file, and convert those files into individual CSV files.
+
+### Preparing Datasets - CSV Files
 After collecting the MVP data from the past 30 years, we iterate every year in our 'mvp' folder and apply the following operations to each HTML file:
 - Create an empty array that will be used to store multiple dataframes
 - Extract relevant information from each HTML file, specifying the 'id' attribute of the table we need.
