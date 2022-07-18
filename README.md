@@ -21,7 +21,6 @@ def Scrape_MVP():
             f.write(data.text)
 ```
 
-
 - Avoid overloading website by sending too many requests
 - Google Chrome Version: 102.0.5.005.61
 - Selenium Chrome Driver: https://chromedriver.storage.googleapis.com/index.html?path=102.0.5005.61/
