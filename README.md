@@ -1,7 +1,7 @@
 # Repository Overview
 The first section of this application involves scraping NBA statistics from Basketball Reference in order to train a machine learning model we can use to generate time-series predictions for each player, in regards to their chance of winning the MVP for a certain year. 
 
-## Section 1: Data Collection
+## Data Collection
 We use Python to scrape data from Basketball Reference, a website that provides basketball statistics and player data from the past 30 years in the NBA. 
 
 - Source: https://www.basketball-reference.com/
@@ -55,5 +55,18 @@ def Parse_MVP(years):
  Run in Command-Line:
  >>> xattr -d com.apple.quarantine /Users/danieldayto/Downloads/chromedriver
 
- ## Section 2: Data Cleaning
- -  - COMBINE ALL 3 CSV FILES INTO ONE DATASET
+## Machine Learning
+Scikit-learn is a free software machine learning library for the Python programming language. It features various classification, regression and clustering algorithms. 
+
+
+### Ridge Regression
+Ridge regression is a regularization technique that performs L2 regularization. It modifies the loss function by adding the penalty equivalent to the square of the magnitude of coefficients.
+
+```python
+    train = stats[stats["Year"] < 2021]
+    test = stats[stats["Year"] == 2021]
+    reg = Ridge(alpha=.1)
+    reg.fit(train[predictors], train["Share"])
+    predictions = reg.predict(test[predictors])
+    predictions = pd.DataFrame(predictions, columns=["Predictions"], index=test.index)
+```
