@@ -63,10 +63,10 @@ Scikit-learn is a free software machine learning library for the Python programm
 Ridge regression is a regularization technique that performs L2 regularization. It modifies the loss function by adding the penalty equivalent to the square of the magnitude of coefficients.
 
 ```python
-    train = stats[stats["Year"] < 2021]
-    test = stats[stats["Year"] == 2021]
-    reg = Ridge(alpha=.1)
-    reg.fit(train[predictors], train["Share"])
-    predictions = reg.predict(test[predictors])
-    predictions = pd.DataFrame(predictions, columns=["Predictions"], index=test.index)
+  train = stats[stats["Year"] < 2021]
+  test = stats[stats["Year"] == 2021]
+  reg = Ridge(alpha=.1)
+  reg.fit(train[predictors], train["Share"])
+  predictions = reg.predict(test[predictors])
+  predictions = pd.DataFrame(predictions, columns=["Predictions"], index=test.index)
 ```
