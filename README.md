@@ -21,6 +21,30 @@ def Scrape_MVP():
             f.write(data.text)
 ```
 
+### Create CSV Files
+After collecting the MVP data from the past 30 years, we iterate every year in our 'mvp' folder and apply the following operations to each HTML file:
+- Create an empty array that will be used to store multiple dataframes
+- Extract relevant information from each HTML file, specifying the 'id' attribute of the table we need.
+- Use Pandas to read the HTML table using Pandas as a dataframe
+- Create a CSV file in the "mvp" folder using the .to_csv() operation 
+
+```python
+def Parse_MVP(years):
+    dfs = []
+    years = range(1991, 2022)
+    for year in years:
+        with open(f"mvp/{year}.html") as f:
+            page = f.read()
+        soup = BeautifulSoup(page, "html.parser")
+        soup.find('tr', class_="over_header").decompose()
+        mvp_table = soup.find(id="mvp")
+        mvp_df = pd.read_html(str(mvp_table))[0]
+        mvp_df["Year"] = year        
+        dfs.append(mvp_df)
+    mvps = pd.concat(dfs)
+    mvps.to_csv("mvp/mvps.csv")    
+```
+
 - Avoid overloading website by sending too many requests
 - Google Chrome Version: 102.0.5.005.61
 - Selenium Chrome Driver: https://chromedriver.storage.googleapis.com/index.html?path=102.0.5005.61/
