@@ -1,8 +1,8 @@
 # tests/test_utils.py
 import os
 import unittest
-from data_collection.utils import save_html, load_html
-from data_collection.constants import BASE_DIR
+from src.data_collection.utils import save_html, load_html
+from src.data_collection.constants import BASE_DIR
 
 class TestUtils(unittest.TestCase):
     def setUp(self):
