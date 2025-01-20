@@ -2,17 +2,38 @@
 
 ## Overview
 
-This repository demonstrates a project that uses NBA statistics to predict MVP winners for a given season through machine learning techniques. It combines **web scraping**, **data preprocessing**, and **predictive modeling** to provide data-driven insights. This project showcases advanced skills in Python programming, **data analysis**, and **machine learning**.
+This repository showcases a project leveraging NBA statistics to predict MVP winners for a given season using machine learning. The workflow integrates **web scraping**, **data preprocessing**, and **predictive modeling** to generate actionable insights.
 
 ---
 
 ## Key Features
 
 1. **Data Collection:** Scrape and gather historical NBA data from [Basketball Reference](https://www.basketball-reference.com/).
-2. **Data Preparation:** Clean, transform, and structure the data for analysis.
-3. **Machine Learning:** Build and train predictive models using ridge regression for MVP prediction.
+2. **Data Preparation:** Clean and transform raw data into structured datasets.
+3. **Machine Learning:** Train machine learning models, including ridge regression, to forecast MVP outcomes.
 
 ---
+
+## Project Structure
+
+```
+NBA-Time-Series-Forecasts/
+├── data_collection/
+│   ├── __init__.py          # Package initialization
+│   ├── constants.py         # Centralized constants for directories and years
+│   ├── utils.py             # Helper functions for file operations
+│   ├── scraping.py          # Web scraping logic
+│   ├── parsing.py           # Data parsing and transformation
+│   ├── driver.py            # Selenium WebDriver configuration
+├── tests/
+│   ├── __init__.py          # Test package initialization
+│   ├── test_utils.py        # Tests for utility functions
+│   ├── test_scraping.py     # Tests for scraping functions
+│   ├── test_parsing.py      # Tests for parsing logic
+├── main.py                  # Entry point for running the pipeline
+├── requirements.txt         # Python dependencies
+├── README.md                # Project documentation
+```
 
 ## Project Workflow
 
@@ -20,29 +41,26 @@ This repository demonstrates a project that uses NBA statistics to predict MVP w
 
 ### Datasets
 
-- **MVP Data**: Historical MVP award data spanning 30+ years (1991–2024).
+- **MVP Data**: Historical MVP award data (1991–2024).
 - **Player Statistics**: Individual player performance metrics.
 - **Team Statistics**: Team-level performance data.
 
 ### Techniques
 
-- **Static Content Scraping**: Leverage requests and BeautifulSoup to scrape MVP and team statistics.
-- **Dynamic Content Scraping**: Use Selenium WebDriver for extracting player stats.
+- **Static Content Scraping**: Leverage `requests` and `BeautifulSoup` modules for scraping `MVP Data` and `Team Statistics`.
+- **Dynamic Content Scraping**: Use `Selenium WebDriver` for player stats.
 
-**Note**: Ensure compliance with Basketball Reference’s terms of use and manage request rates responsibly.
+**Note**: Note: Adhere to Basketball Reference’s terms of use and manage request rates responsibly.
 
 ---
 
 ## 2. Data Preparation
 
-Raw HTML data is parsed and transformed into structured CSV files using pandas. This ensures the data is ready for machine learning workflows.
+Transform raw HTML data into structured CSV files using pandas. This step ensures compatibility with machine learning pipelines.
 
-Example: Parsing MVP Data◊
+### Example: Parsing MVP Data
 
 ```python
-import pandas as pd
-from bs4 import BeautifulSoup
-
 def parse_mvp_data():
     dfs = []
     for year in range(1991, 2024):
@@ -62,13 +80,9 @@ def parse_mvp_data():
 
 ## 3. Machine Learning
 
-The predictive model uses ridge regression to predict MVP shares based on player statistics. Regularization is applied to mitigate overfitting and enhance generalization.
+### Ridge Regression
 
-### Ridge Regression Implementation
-
-Ridge regression, a regularization technique, is employed to predict MVP shares based on player statistics. Regularization helps mitigate overfitting by penalizing large coefficients.
-
-#### Example Implementation
+Ridge regression predicts MVP shares based on player statistics. Regularization mitigates overfitting and improves generalization.
 
 ```python
 from sklearn.linear_model import Ridge
@@ -90,8 +104,8 @@ def train_and_predict(stats, predictors):
 
 - **Languages**: Python
 - **Libraries**: `requests`, `BeautifulSoup`, `pandas`, `scikit-learn`, `selenium`
-- **Utilities**: Selenium `ChromeDriver` for dynamic content scraping.
-- **Development Environment**: Python 3.9+, Google Chrome 102.0.5.005.61
+- **Utilities**: `Selenium ChromeDriver` for dynamic scraping.
+- **Environment**: Python 3.10+, Google Chrome 102+
 
 ---
 
@@ -99,11 +113,8 @@ def train_and_predict(stats, predictors):
 
 ### Prerequisites
 
-1. Install Python 3.10
-2. Install `Chrome` and `ChromeDriver`
-
-- Download `ChromeDriver`: https://chromedriver.chromium.org/downloads
-- Install via `Homebrew` on macOS:
+1. Install `Python 3.10+`
+2. Install `Google Chrome` and [ChromeDriver](https://chromedriver.chromium.org/downloads)
 
 ```bash
 brew install --cask chromedriver
@@ -122,18 +133,17 @@ cd NBA-Time-Series-Forecasts
 
 ```bash
 python3.10 -m venv venv
-
 source venv/bin/activate
-# On Windows: venv\\Scripts\\activate
+
 ```
 
-3. Install required dependencies:
+3. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Configure the `.env` file with your ChromeDriver path:
+4. Configure the `.env` file:
 
 ```plaintext
 CHROMEDRIVER_PATH=/absolute/path/to/chromedriver
@@ -141,23 +151,26 @@ CHROMEDRIVER_PATH=/absolute/path/to/chromedriver
 
 **Tip**: You can find your `CHROMEDRIVER_PATH` by running: `which chromedriver`.
 
-5. Run the scripts for data scraping and parsing.
+5. Run the pipeline or individual steps:
 
 ```bash
-python scrape_data.py
-python parse_data.py
+python main.py
 ```
 
 6. Train the machine learning model and evaluate predictions.
 
 ---
 
+## Configuring Proxy Server
+
+https://free-proxy-list.net/
+
 ## Future Enhancements
 
-1. Improve scraping efficiency using parallel and `asynchronous` processing.
-2. Incorporate advanced player statistics and metrics for better predictions.
-3. Experiment with additional models like `gradient boosting`, `random forests`, or `neural networks`.
-4. Add visualizations for exploratory data analysis (`EDA`) and model insights.
+1. Optimize scraping using `asynchronous` techniques.
+2. Add advanced metrics and features for improved predictions.
+3. Incorporate `visualizations` for exploratory data analysis (`EDA`).
+4. Experiment with ensemble models like `random forests` or `gradient boosting`.
 
 ---
 
