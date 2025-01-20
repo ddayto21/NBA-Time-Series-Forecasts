@@ -1,6 +1,6 @@
 # main.py
-from data_collection.scraping import scrape_mvp, scrape_player, scrape_team
-from data_collection.parsing import parse_mvp, parse_player, parse_team
+from src.data_collection.scraping import scrape_mvp, scrape_player, scrape_team
+from src.data_collection.parsing import parse_mvp, parse_player, parse_team
 
 
 def display_menu():
