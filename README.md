@@ -2,67 +2,42 @@
 
 ## Overview
 
-This repository showcases a project aimed at leveraging NBA statistics to predict MVP winners for a given season using machine learning techniques. The project combines web scraping, data preprocessing, and machine learning model development to provide insightful predictions based on historical data. This repository is structured to demonstrate advanced technical skills in Python programming, data analysis, and predictive modeling.
+This repository demonstrates a project that uses NBA statistics to predict MVP winners for a given season through machine learning techniques. It combines **web scraping**, **data preprocessing**, and **predictive modeling** to provide data-driven insights. This project showcases advanced skills in Python programming, **data analysis**, and **machine learning**.
 
 ---
 
 ## Key Features
 
-1. **Data Collection:** Scrape historical NBA data from Basketball Reference.
-2. **Data Preparation:** Clean and transform data for model training.
-3. **Machine Learning:** Implement ridge regression for time-series predictions.
+1. **Data Collection:** Scrape and gather historical NBA data from [Basketball Reference](https://www.basketball-reference.com/).
+2. **Data Preparation:** Clean, transform, and structure the data for analysis.
+3. **Machine Learning:** Build and train predictive models using ridge regression for MVP prediction.
 
 ---
 
-## Data Collection
+## Project Workflow
 
-### Source
-
-Basketball Reference: [basketball-reference.com](https://www.basketball-reference.com/)
+## 1. Data Collection
 
 ### Datasets
 
-- **MVP Data**: Historical MVP award data spanning 30 years (1991-2022).
+- **MVP Data**: Historical MVP award data spanning 30+ years (1991–2024).
 - **Player Statistics**: Individual player performance metrics.
-- **Team Statistics**: Team-level statistics.
+- **Team Statistics**: Team-level performance data.
 
-### Web Scraping Techniques
+### Techniques
 
-#### Scraping MVP Data
+- **Static Content Scraping**: Leverage requests and BeautifulSoup to scrape MVP and team statistics.
+- **Dynamic Content Scraping**: Use Selenium WebDriver for extracting player stats.
 
-Python and libraries such as `requests` and `BeautifulSoup` are used to scrape and process MVP data efficiently. Below is a sample function that retrieves and saves MVP data:
-
-```python
-import requests
-
-def scrape_mvp_data():
-    years = range(1991, 2022)
-    url_template = "https://www.basketball-reference.com/awards/awards_{}.html"
-    for year in years:
-        url = url_template.format(year)
-        response = requests.get(url)
-        with open(f"mvp/{year}.html", "w+") as file:
-            file.write(response.text)
-```
-
-#### Scraping Player Statistics
-
-To handle dynamic content, Selenium is utilized with a Chrome WebDriver to load and interact with pages. This allows the extraction of player statistics that are not readily accessible via static HTML parsing.
-
-> **Technical Note:** Ensure proper handling of request rates to avoid overloading the source website.
+**Note**: Ensure compliance with Basketball Reference’s terms of use and manage request rates responsibly.
 
 ---
 
-## Data Preparation
+## 2. Data Preparation
 
-Once the raw data is collected, it is transformed into structured CSV files for further analysis. The process involves:
+Raw HTML data is parsed and transformed into structured CSV files using pandas. This ensures the data is ready for machine learning workflows.
 
-1. Parsing HTML files to extract relevant data tables.
-2. Using `pandas` for data manipulation and conversion to CSV format.
-
-### Example: Parsing MVP Data
-
-The following function demonstrates parsing and transforming MVP data:
+Example: Parsing MVP Data◊
 
 ```python
 import pandas as pd
@@ -70,8 +45,7 @@ from bs4 import BeautifulSoup
 
 def parse_mvp_data():
     dfs = []
-    years = range(1991, 2022)
-    for year in years:
+    for year in range(1991, 2024):
         with open(f"mvp/{year}.html", "r") as file:
             content = file.read()
         soup = BeautifulSoup(content, "html.parser")
@@ -80,17 +54,17 @@ def parse_mvp_data():
         mvp_df = pd.read_html(str(mvp_table))[0]
         mvp_df["Year"] = year
         dfs.append(mvp_df)
-    mvps = pd.concat(dfs)
+    mvps = pd.concat(dfs, ignore_index=True)
     mvps.to_csv("mvp/mvps.csv", index=False)
 ```
 
 ---
 
-## Machine Learning
+## 3. Machine Learning
 
-The machine learning component of the project leverages `scikit-learn` for model training and evaluation.
+The predictive model uses ridge regression to predict MVP shares based on player statistics. Regularization is applied to mitigate overfitting and enhance generalization.
 
-### Ridge Regression
+### Ridge Regression Implementation
 
 Ridge regression, a regularization technique, is employed to predict MVP shares based on player statistics. Regularization helps mitigate overfitting by penalizing large coefficients.
 
@@ -116,33 +90,74 @@ def train_and_predict(stats, predictors):
 
 - **Languages**: Python
 - **Libraries**: `requests`, `BeautifulSoup`, `pandas`, `scikit-learn`, `selenium`
-- **Utilities**: Selenium ChromeDriver for dynamic content scraping
-- **Development Environment**: Python 3.9, Google Chrome 102.0.5.005.61
+- **Utilities**: Selenium `ChromeDriver` for dynamic content scraping.
+- **Development Environment**: Python 3.9+, Google Chrome 102.0.5.005.61
 
 ---
 
 ## How to Run the Project
 
-1. Clone the repository.
-2. Install required dependencies using `pip install -r requirements.txt`.
-3. Configure Selenium ChromeDriver:
-   ```bash
-   xattr -d com.apple.quarantine /path/to/chromedriver
-   ```
-4. Run the scripts for data scraping and parsing.
-   ```bash
-   python scrape_data.py
-   python parse_data.py
-   ```
-5. Train the machine learning model and evaluate predictions.
+### Prerequisites
+
+1. Install Python 3.10
+2. Install `Chrome` and `ChromeDriver`
+
+- Download `ChromeDriver`: https://chromedriver.chromium.org/downloads
+- Install via `Homebrew` on macOS:
+
+```bash
+brew install --cask chromedriver
+```
+
+### Steps
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/NBA-Time-Series-Forecasts.git
+cd NBA-Time-Series-Forecasts
+```
+
+2. Create and activate a virtual environment:
+
+```bash
+python3.10 -m venv venv
+
+source venv/bin/activate
+# On Windows: venv\\Scripts\\activate
+```
+
+3. Install required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Configure the `.env` file with your ChromeDriver path:
+
+```plaintext
+CHROMEDRIVER_PATH=/absolute/path/to/chromedriver
+```
+
+**Tip**: You can find your `CHROMEDRIVER_PATH` by running: `which chromedriver`.
+
+5. Run the scripts for data scraping and parsing.
+
+```bash
+python scrape_data.py
+python parse_data.py
+```
+
+6. Train the machine learning model and evaluate predictions.
 
 ---
 
-## Future Improvements
+## Future Enhancements
 
-1. Enhance scraping efficiency using asynchronous techniques.
-2. Expand dataset to include advanced player metrics.
-3. Experiment with additional machine learning models such as gradient boosting and neural networks.
+1. Improve scraping efficiency using parallel and `asynchronous` processing.
+2. Incorporate advanced player statistics and metrics for better predictions.
+3. Experiment with additional models like `gradient boosting`, `random forests`, or `neural networks`.
+4. Add visualizations for exploratory data analysis (`EDA`) and model insights.
 
 ---
 
@@ -162,7 +177,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Data sourced from [Basketball Reference](https://www.basketball-reference.com/).
 - Inspired by the NBA's rich history of exceptional players and data-driven decision-making.
-
----
-
-Elevate your data analysis and machine learning projects by exploring this comprehensive approach to predicting MVP winners. Feedback and collaborations are greatly appreciated!
