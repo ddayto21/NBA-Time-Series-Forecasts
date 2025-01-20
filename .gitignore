@@ -1,3 +1,8 @@
+# Ignore HTML files in mvp/html, team/html, and player/html
+src/data_collection/mvp/html/*.html
+src/data_collection/team/html/*.html
+src/data_collection/player/html/*.html
+
 # -----------------------------------------------------------------------------
 # Python bytecode / compiled files
 # -----------------------------------------------------------------------------
