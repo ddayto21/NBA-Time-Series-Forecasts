@@ -2,6 +2,8 @@
 src/data_collection/mvp/html/*.html
 src/data_collection/team/html/*.html
 src/data_collection/player/html/*.html
+src/data_collection/database.py
+tests/test_database.py
 
 # -----------------------------------------------------------------------------
 # Python bytecode / compiled files
