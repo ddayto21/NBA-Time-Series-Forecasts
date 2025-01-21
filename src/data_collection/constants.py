@@ -16,4 +16,4 @@ for path in DIRECTORIES.values():
     os.makedirs(path, exist_ok=True)
 
 # Years of data to scrape and parse
-YEARS = range(1991, 2024)
+YEARS = range(1991, 2025)

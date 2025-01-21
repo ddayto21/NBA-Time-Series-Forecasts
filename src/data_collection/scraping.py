@@ -63,3 +63,4 @@ def scrape_team():
             time.sleep(1)  # Pause to avoid rate limiting
         except requests.exceptions.RequestException as e:
             print(f"Failed to scrape team data for year {year}: {e}")
+
